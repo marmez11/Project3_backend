@@ -1,0 +1,42 @@
+// DEPENDENCIES
+require("dotenv").config();
+const { PORT = 3000, DATABASE_URL } = process.env;
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+
+// Import middlware
+const cors = require("cors");
+const morgan = require("morgan");
+
+// DATABASE CONNECTION
+
+// Establish Connection
+mongoose.connect(DATABASE_URL, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  });
+
+// Connection Events
+mongoose.connection
+.on("open", () => console.log("Your are connected to mongoose"))
+.on("close", () => console.log("Your are disconnected from mongoose"))
+.on("error", (error) => console.log(error));
+
+// MODELS
+const RecipeSchema = new mongoose.Schema({
+    name: String,
+    image: String,
+    ingredients: String,
+    directions: String
+});
+
+const Recipe = mongoose.model("Recipe", RecipeSchema);
+
+// MiddleWare
+app.use(cors());
+app.use(morgan("dev")); 
+app.use(express.json()); 
+
+// LISTENER
+app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
