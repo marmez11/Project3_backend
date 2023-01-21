@@ -38,5 +38,11 @@ app.use(cors());
 app.use(morgan("dev")); 
 app.use(express.json()); 
 
+// ROUTES
+
+app.get("/", (req, res) => {
+    res.send("hello world");
+  });
+
 // LISTENER
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
