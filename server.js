@@ -62,5 +62,16 @@ app.post("/recipe", async (req, res) => {
     }
   });
 
+// Update ROUTE
+app.put("/recipe/:id", async (req, res) => {
+    try {
+      res.json(
+        await Recipe.findByIdAndUpdate(req.params.id, req.body, { new: true })
+      );
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  });
+
 // LISTENER
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
