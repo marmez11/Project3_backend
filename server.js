@@ -52,6 +52,15 @@ app.get("/recipe", async (req, res) => {
       res.status(400).json(error);
     }
   });
+ 
+// CREATE ROUTE
+app.post("/recipe", async (req, res) => {
+    try {
+      res.json(await Recipe.create(req.body));
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  });
 
 // LISTENER
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
