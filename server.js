@@ -44,5 +44,14 @@ app.get("/", (req, res) => {
     res.send("hello world");
   });
 
+// INDEX ROUTE
+app.get("/recipe", async (req, res) => {
+    try {
+      res.json(await Recipe.find({}));
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  });
+
 // LISTENER
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
