@@ -73,5 +73,14 @@ app.put("/recipe/:id", async (req, res) => {
     }
   });
 
+// Delete ROUTE
+app.delete("/recipe/:id", async (req, res) => {
+    try {
+      res.json(await Recipe.findByIdAndRemove(req.params.id));
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  });
+
 // LISTENER
 app.listen(PORT, () => console.log(`listening on PORT ${PORT}`));
